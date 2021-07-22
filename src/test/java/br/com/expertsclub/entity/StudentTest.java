@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class StudentTest {
 
@@ -20,7 +22,9 @@ class StudentTest {
             }
         }
 
-        Student expected = new Student("Maria", 18); // Implemente aqui a solução utilizando o Stream API
+        Student expected = students.stream()
+                .max(Comparator.comparing(Student::getAge))
+                .get();
 
         System.out.println("Antes: " + oldest.getName());
         System.out.println("Depois: " + expected.getName());
@@ -39,7 +43,9 @@ class StudentTest {
             }
         }
 
-        Student expected = new Student("Pedro Paulo", 14); // Implemente aqui a solução utilizando o Stream API
+        Student expected = students.stream()
+                .min(Comparator.comparing(Student::getAge))
+                .get();
 
         System.out.println("Antes: " + newest.getName());
         System.out.println("Depois: " + expected.getName());
@@ -58,7 +64,9 @@ class StudentTest {
             }
         }
 
-        List<Student> expected = null; // Implemente aqui a solução utilizando o Stream API
+        List<Student> expected = students.stream()
+                .filter(student -> student.getAge() > 16)
+                .collect(Collectors.toList());
 
         System.out.println("Antes: " + studentsHigher);
         System.out.println("Depois: " + expected);
@@ -77,7 +85,10 @@ class StudentTest {
             }
         }
 
-        int expected = 31; // Implemente aqui a solução utilizando o Stream API
+        int expected = students.stream()
+                .filter(student -> student.getName().startsWith("Pedro"))
+                .mapToInt(Student::getAge)
+                .sum();
 
         System.out.println("Antes: " + sum);
         System.out.println("Depois: " + expected);
@@ -100,7 +111,11 @@ class StudentTest {
 
         double average = (double) soma / count;
 
-        double expected = 16.5; // Implemente aqui a solução utilizando o Stream API
+        double expected = students.stream()
+                .filter(student -> student.getName().length() == 6)
+                .mapToInt(Student::getAge)
+                .average()
+                .getAsDouble();
 
         System.out.println("Antes: " + average);
         System.out.println("Depois: " + expected);
