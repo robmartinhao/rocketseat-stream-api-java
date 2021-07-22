@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IntegerTest {
 
@@ -21,7 +22,10 @@ public class IntegerTest {
             }
         }
 
-        int expected = 20; // Implemente aqui a solução utilizando o Stream API
+        int expected = numbers.stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElseThrow();
 
         System.out.println("Antes: " + biggest);
         System.out.println("Depois: " + expected);
@@ -40,7 +44,10 @@ public class IntegerTest {
             }
         }
 
-        int expected = 2; // Implemente aqui a solução utilizando o Stream API
+        int expected = numbers.stream()
+                .mapToInt(Integer::intValue)
+                .min()
+                .orElseThrow();
 
         System.out.println("Antes: " + lowest);
         System.out.println("Depois: " + expected);
@@ -57,7 +64,9 @@ public class IntegerTest {
             sum += number;
         }
 
-        int expected = 84; // Implemente aqui a solução utilizando o Stream API
+        int expected = numbers.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
 
         System.out.println("Antes: " + sum);
         System.out.println("Depois: " + expected);
@@ -78,7 +87,10 @@ public class IntegerTest {
             }
         }
 
-        int expected = 80; // Implemente aqui a solução utilizando o Stream API
+        int expected = numbers.stream()
+                .distinct()
+                .mapToInt(Integer::intValue)
+                .sum();
 
         System.out.println("Antes: " + sum);
         System.out.println("Depois: " + expected);
@@ -95,7 +107,9 @@ public class IntegerTest {
             multipliedNumbers.add(number * 2);
         }
 
-        List<Integer> expected = Arrays.asList(4, 4, 4, 32, 40, 28, 12, 20, 24); // Implemente aqui a solução utilizando o Stream API
+        List<Integer> expected = numbers.stream()
+                .map(number -> number * 2)
+                .collect(Collectors.toList());
 
         System.out.println("Antes: " + multipliedNumbers);
         System.out.println("Depois: " + expected);
@@ -114,7 +128,7 @@ public class IntegerTest {
             }
         }
 
-        boolean expected = true; // Implemente aqui a solução utilizando o Stream API
+        boolean expected = numbers.stream().allMatch(i -> i % 2 == 0);
 
         System.out.println("Antes: " + isEven);
         System.out.println("Depois: " + expected);
